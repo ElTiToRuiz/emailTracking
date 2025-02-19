@@ -1,10 +1,10 @@
 # 📩 Email Tracker System (For Educational Purposes Only)
 
-⚠️ **Legal Disclaimer:**  
+## ⚠️ **Legal Disclaimer**:
 This code was developed **solely for educational and learning purposes**.  
 Using this code to track emails without the recipient's consent **may violate privacy laws** in different jurisdictions.  
 
-**The author is NOT responsible** for any misuse of this tool.  
+## **The author is NOT responsible** for any misuse of this tool.  
 Each user is responsible for ensuring the legality of their actions in their respective country and accepting any legal consequences that may arise.  
 
 ### 🚀 Purpose of This Project:
