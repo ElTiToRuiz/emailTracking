@@ -2,6 +2,7 @@ import { getOpenedEmails, getUnsubscribedEmails, trackEmailOpen, unsubscribeEmai
 import { EmailTracking, TrackEmailQuery } from "../types/types";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
+import { unsubscribeHTML } from "../utils/unsubscribeHTML";
 dotenv.config();
 
 export class TrackEmail{
@@ -67,7 +68,8 @@ export class TrackEmail{
                 return res.status(400).json({ error: "Invalid email" });
             }
             unsubscribeEmail(email);
-            return res.json({ message: "Unsubscribed successfully" });
+            // This is a simple HTML page that displays a message to the user that they have successfully unsubscribed from the email tracking system.
+            return res.send(unsubscribeHTML); 
         } catch (error) {
             console.error("Error in unsubscribe:", error);
             return res.status(500).json({ error: "Internal Server Error" });
