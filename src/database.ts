@@ -17,11 +17,25 @@ db.exec(`
     )
 `);
 
+db.exec(`
+    CREATE TABLE IF NOT EXISTS unsubscribed_emails (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL
+    )
+`);
+
 // Función para registrar apertura de email o incrementar contador
 export const trackEmailOpen = ({email, ip, userAgent, emailType}:EmailTracking) => {
     // Verificar si ya existe el email en la base de datos
+    const exist = db.prepare("SELECT * FROM unsubscribed_emails WHERE email = ?").get(email);
+    
+    if (exist){
+        console.log("Email is unsubscribed:" + email);
+        return
+    };
+    
     const existingEntry = db.prepare("SELECT * FROM email_tracking WHERE email = ? AND email_type = ?").get(email, emailType);
-
+    
     if (existingEntry) {
         // Si ya existe, incrementar contador y actualizar timestamp, IP y User-Agent
         db.prepare(`
@@ -43,3 +57,8 @@ export const getOpenedEmails = () => {
     return db.prepare("SELECT * FROM email_tracking ORDER BY opened_at DESC").all();
 };
  
+
+export const unsubscribeEmail = (email: string) => {
+    db.prepare("INSERT INTO unsubscribed_emails (email) VALUES (?)").run(email);
+    console.log("Email unsubscribed:", email);
+}

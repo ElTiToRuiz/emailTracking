@@ -16,6 +16,9 @@ app.get("/track-email",  TrackEmail.trackEmail);
 // Endpoint to get all opened emails
 app.get("/opened-emails", TrackEmail.openedEmails);
 
+// Endpoint to make a user opt-out
+app.get("/unsubscribe", TrackEmail.unsubscribe);
+
 // ✅ Export app for testing
 export { app };
 
