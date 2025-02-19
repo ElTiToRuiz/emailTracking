@@ -1,4 +1,23 @@
-# 📩 Email Tracking System (TypeScript + SQLite)
+# 📩 Email Tracker System (For Educational Purposes Only)
+
+⚠️ **Legal Disclaimer:**  
+This code was developed **solely for educational and learning purposes**.  
+Using this code to track emails without the recipient's consent **may violate privacy laws** in different jurisdictions.  
+
+**The author is NOT responsible** for any misuse of this tool.  
+Each user is responsible for ensuring the legality of their actions in their respective country and accepting any legal consequences that may arise.  
+
+### 🚀 Purpose of This Project:
+- To learn and understand how email tracking works.
+- For personal statistics and system improvements.
+- **NOT** intended for illegal or unethical use.  
+
+### ⚠️ Use Responsibly:
+- Always comply with local privacy laws.
+- If tracking emails, ensure recipients are aware and have given consent.
+- Do not use this tool for malicious purposes.
+
+🔹 **If you are unsure whether you can legally use this tool, consult with a legal expert before proceeding.**  
 
 ## 🚀 Overview
 This is a **self-hosted email tracking system** built with **TypeScript, Express.js, and SQLite**. It allows you to:
