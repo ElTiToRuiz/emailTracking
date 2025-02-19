@@ -17,10 +17,10 @@ app.get("/track-email",  TrackEmail.trackEmail);
 app.get("/opened-emails", TrackEmail.openedEmails);
 
 // Endpoint to make a user opt-out
-app.get("/unsubscribe", TrackEmail.unsubscribe);
+app.get("/opt-out", TrackEmail.unsubscribe);
 
 // Endpoint to get all unsubscribed emails
-app.get("/unsubscribed-emails", TrackEmail.unsubscribeEmails);
+app.get("/opt-out-emails", TrackEmail.unsubscribeEmails);
 
 // ✅ Export app for testing
 export { app };
