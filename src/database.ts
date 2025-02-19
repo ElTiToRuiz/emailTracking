@@ -62,3 +62,7 @@ export const unsubscribeEmail = (email: string) => {
     db.prepare("INSERT INTO unsubscribed_emails (email) VALUES (?)").run(email);
     console.log("Email unsubscribed:", email);
 }
+
+export const getUnsubscribedEmails = () => {
+    return db.prepare("SELECT * FROM unsubscribed_emails").all();
+}

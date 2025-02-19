@@ -1,4 +1,4 @@
-import { getOpenedEmails, trackEmailOpen, unsubscribeEmail } from "../database";
+import { getOpenedEmails, getUnsubscribedEmails, trackEmailOpen, unsubscribeEmail } from "../database";
 import { EmailTracking, TrackEmailQuery } from "../types/types";
 import { Request, Response } from "express";
 
@@ -66,6 +66,16 @@ export class TrackEmail{
         } catch (error) {
             console.error("Error in unsubscribe:", error);
             return res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+
+    static unsubscribeEmails = async (req: Request, res: Response) => {
+        try {
+            const unsubscribe = getUnsubscribedEmails();
+            res.json(unsubscribe);
+        } catch (error) {
+            console.error("Error fetching opened emails:", error);
+            res.status(500).json({ error: "Internal Server Error" });
         }
     }
 } 
