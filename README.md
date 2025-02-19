@@ -15,7 +15,7 @@ This is a **self-hosted email tracking system** built with **TypeScript, Express
 ## 📌 Installation
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/email-tracking-ts.git
+git clone https://github.com/ElTiToRuiz/EmailTracking.git
 cd email-tracking-ts
 ```
 
