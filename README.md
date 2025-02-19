@@ -65,36 +65,6 @@ Run test coverage:
 npm run test:coverage
 ```
 
-## 🚀 Deployment (DigitalOcean)
-1️⃣ **Create a VPS (Ubuntu 20.04 LTS recommended).**  
-2️⃣ **Install Node.js & Git:**
-```bash
-sudo apt update && sudo apt install -y nodejs npm git
-```
-3️⃣ **Clone your project:**
-```bash
-git clone https://github.com/your-username/email-tracking-ts.git
-cd email-tracking-ts
-npm install
-```
-4️⃣ **Start the server with PM2:**
-```bash
-npm install -g pm2
-pm run build
-pm start
-pm2 start dist/server.js --name tracking-email
-pm2 save
-```
-5️⃣ **Allow incoming connections:**
-```bash
-sudo ufw allow 3000/tcp
-```
-6️⃣ **Your server is now live! 🎉**  
-Test it with:
-```bash
-curl http://your-server-ip:3000/track-email?email=test@example.com
-```
-
 ## 🔥 Future Improvements
 - **Add a React dashboard to visualize email tracking data.**
 - **Upgrade SQLite to PostgreSQL or MySQL for scalability.**
