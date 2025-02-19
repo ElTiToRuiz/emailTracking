@@ -1,33 +1,20 @@
 import express from "express";
-import cors from "cors";
-import path from "path";
-import { trackEmailOpen, getOpenedEmails } from "./database";
+import { TrackEmail } from "./controller/trackEmail";
+import { corsOptions } from "./middleware/cors";
+import { checkRateLimiter } from "./middleware/rateLimit";
 
 const app = express();
-app.use(cors());
 
-app.get("/track-email", (req, res) => {
-    const { email } = req.query;
-    if (email && typeof email === "string") {
-        console.log(`📩 Email opened: ${email}`);
-        trackEmailOpen(email);
-    }
+app.use(corsOptions());
 
-    // Ensure the pixel image is correctly served
-    const imagePath = path.join(__dirname, "../public/pixel.png");
-    res.setHeader("Content-Type", "image/png");
-    res.sendFile(imagePath, (err) => {
-        if (err) {
-            console.error("Error sending pixel:", err);
-            res.status(500).send("Internal Server Error");
-        }
-    });
-});
+// ✅ Rate Limiting to avoid spam attacks
+app.use("/track-email", checkRateLimiter());
 
-// Get tracked email opens
-app.get("/opened-emails", (req, res) => {
-    res.json(getOpenedEmails());
-});
+// Endpoint to track email opens
+app.get("/track-email",  TrackEmail.trackEmail);
+
+// Endpoint to get all opened emails
+app.get("/opened-emails", TrackEmail.openedEmails);
 
 // ✅ Export app for testing
 export { app };

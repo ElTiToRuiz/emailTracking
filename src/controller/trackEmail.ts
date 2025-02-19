@@ -1,0 +1,57 @@
+import { getOpenedEmails, trackEmailOpen } from "../database";
+import { EmailTracking, TrackEmailQuery } from "../types/types";
+import { Request, Response } from "express";
+
+export class TrackEmail{
+    static trackEmail = async (req: Request, res: Response) => {
+        try {
+            const { email, emailType, api_key } = req.query as TrackEmailQuery;
+            const ip = req.ip || "unknown";
+            const userAgent = req.get("User-Agent") || "unknown";
+    
+            // 🚨 Validate API Key
+            if (api_key !== process.env.API_KEY) {
+                return res.status(403).json({ error: "Unauthorized access" });
+            }
+    
+            // 🚨 Validate email input
+            if (!email || typeof email !== "string") {
+                return res.status(400).json({ error: "Invalid email" });
+            }
+    
+            
+            // ✅ Track email open in database
+            const email_tracking: EmailTracking = {
+                email: email,
+                emailType: emailType as string|| "unknown",
+                ip: ip || "unknown",
+                userAgent: userAgent || "unknown"
+            }
+    
+            trackEmailOpen(email_tracking);
+    
+            // ✅ Send tracking pixel
+            const pixel = Buffer.from(
+                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/ozXwAAAABJRU5ErkJggg==",
+                "base64"
+            );
+    
+            res.setHeader("Content-Type", "image/png");
+            res.setHeader("Content-Length", pixel.length.toString());
+            return res.end(pixel);
+        } catch (error) {
+            console.error("Error in track-email:", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+
+    static openedEmails = async (req: Request, res: Response) => {
+        try {
+            const openedEmails = getOpenedEmails();
+            res.json(openedEmails);
+        } catch (error) {
+            console.error("Error fetching opened emails:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+} 
