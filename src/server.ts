@@ -22,7 +22,6 @@ app.get("/unsubscribe", TrackEmail.unsubscribe);
 // Endpoint to get all unsubscribed emails
 app.get("/unsubscribed-emails", TrackEmail.unsubscribeEmails);
 
-
 // ✅ Export app for testing
 export { app };
 

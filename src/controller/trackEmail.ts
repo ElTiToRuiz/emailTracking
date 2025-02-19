@@ -1,6 +1,8 @@
 import { getOpenedEmails, getUnsubscribedEmails, trackEmailOpen, unsubscribeEmail } from "../database";
 import { EmailTracking, TrackEmailQuery } from "../types/types";
 import { Request, Response } from "express";
+import dotenv from "dotenv";
+dotenv.config();
 
 export class TrackEmail{
     static trackEmail = async (req: Request, res: Response) => {
@@ -40,6 +42,9 @@ export class TrackEmail{
             res.setHeader("Content-Length", pixel.length.toString());
             return res.end(pixel);
         } catch (error) {
+            if (error instanceof Error && error.message === "Email is unsubscribed") {
+                return res.status(400).json({ error: "Email is unsubscribed" });
+            }
             console.error("Error in track-email:", error);
             return res.status(500).json({ error: "Internal Server Error" });
         }

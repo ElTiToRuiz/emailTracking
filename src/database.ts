@@ -31,7 +31,7 @@ export const trackEmailOpen = ({email, ip, userAgent, emailType}:EmailTracking) 
     
     if (exist){
         console.log("Email is unsubscribed:" + email);
-        return
+        throw new Error("Email is unsubscribed");
     };
     
     const existingEntry = db.prepare("SELECT * FROM email_tracking WHERE email = ? AND email_type = ?").get(email, emailType);

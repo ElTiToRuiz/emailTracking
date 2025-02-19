@@ -6,7 +6,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "tsc && cp -r public dist/",
+    "build": "tsc && if [ -d public ]; then cp -r public dist/; fi",
     "start": "node dist/src/server.js"
   },
   "jest": {
