@@ -56,6 +56,8 @@ export class TrackEmail{
 
     static openedEmails = async (req: Request, res: Response) => {
         try {
+            const { api_key } = req.query as TrackEmailQuery;
+            if (api_key !== process.env.API_KEY) return res.status(403).json({ error: "Unauthorized access" });
             const openedEmails = getOpenedEmails();
             res.json(openedEmails);
         } catch (error) {
@@ -67,11 +69,8 @@ export class TrackEmail{
     static unsubscribe = async (req: Request, res: Response) => {
         try {
             const email = req.query.email as string;
-            if (!email || typeof email !== "string") {
-                return res.status(400).json({ error: "Invalid email" });
-            }
+            if (!email || typeof email !== "string") return res.status(400).json({ error: "Invalid email" });
             unsubscribeEmail(email);
-            // This is a simple HTML page that displays a message to the user that they have successfully unsubscribed from the email tracking system.
             return res.send(unsubscribeHTML); 
         } catch (error) {
             console.error("Error in unsubscribe:", error);
@@ -81,6 +80,8 @@ export class TrackEmail{
 
     static unsubscribeEmails = async (req: Request, res: Response) => {
         try {
+            const { api_key } = req.query as TrackEmailQuery;
+            if (api_key !== process.env.API_KEY) return res.status(403).json({ error: "Unauthorized access" });
             const unsubscribe = getUnsubscribedEmails();
             res.json(unsubscribe);
         } catch (error) {
