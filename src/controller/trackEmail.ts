@@ -9,7 +9,10 @@ export class TrackEmail{
     static trackEmail = async (req: Request, res: Response) => {
         try {
             const { email, emailType, api_key } = req.query as TrackEmailQuery;
-            const ip = req.ip || "unknown";
+            let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown";
+            if (Array.isArray(ip)) {
+                ip = ip.join(", ");
+            }
             const userAgent = req.get("User-Agent") || "unknown";
     
             // 🚨 Validate API Key
