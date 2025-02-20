@@ -5,6 +5,8 @@ import { checkRateLimiter } from "./middleware/rateLimit";
 
 const app = express();
 
+app.set("trust proxy", true);
+
 app.use(corsOptions());
 
 // ✅ Rate Limiting to avoid spam attacks
