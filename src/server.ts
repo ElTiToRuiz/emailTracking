@@ -9,9 +9,11 @@ app.set("trust proxy", true);
 
 app.use(corsOptions());
 
+
 // ✅ Rate Limiting to avoid spam attacks
 app.use("/track-email", checkRateLimiter());
 
+app.get("/logo/:number", TrackEmail.trackEmailWithJWT);
 // Endpoint to track email opens
 app.get("/track-email",  TrackEmail.trackEmail);
 

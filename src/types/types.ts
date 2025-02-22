@@ -9,4 +9,5 @@ export interface TrackEmailQuery {
     email?: string;
     emailType?: string;
     api_key?: string;
+    
 }

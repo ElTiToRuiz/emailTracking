@@ -1,6 +1,6 @@
 import cors from "cors";
 
-const allowedOrigins = ["http://159.223.225.167", "https://api.zyroex.com", /^http:\/\/localhost:\d+$/];
+const allowedOrigins = ["http://159.223.225.167", "https://159.223.225.167", "https://api.zyroex.com", /^http:\/\/localhost:\d+$/];
 
 export const corsOptions = () => {
     return cors({
