@@ -30,11 +30,10 @@ export class TrackEmail{
             ip: ip || "unknown",
             userAgent: userAgent || "unknown"
         };
-        
+        console.log("📧 Email Opened:", email, "\nEmail Type:", emailType);
         trackEmailOpen(email_tracking);
 
         const imagePath = path.join(__dirname, "../../logo.png");
-        console.log("imagePath", imagePath);
         res.setHeader("Content-Type", "image/png");
         res.sendFile(imagePath);
     };
@@ -42,11 +41,9 @@ export class TrackEmail{
 
     static trackEmailWithJWT =  async (req: Request, res: Response) => {
         const { number } = req.params;
-        console.log("number", number);
         try {
             const jwtSecret = process.env.JWT_SECRET || "";
             const decoded = jwt.verify(number, jwtSecret) as TrackEmailQuery;
-            console.log("decoded", decoded);
             TrackEmail.validateAndTrackEmail(decoded, req, res);
             return;
         } catch (error) {
